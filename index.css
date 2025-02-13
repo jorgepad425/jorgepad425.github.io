@@ -1,0 +1,30 @@
+.heading {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.booklist {
+    border: 15px double palevioletred;
+    margin: 50px;
+}
+.book{
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+    border: 10px solid palegoldenrod;
+    margin: 50px;
+}
+.ul {
+    list-style-type: none;
+}
+.booktext{
+    margin-left: 10px;
+    margin-block-start: 10px;
+}
+.input {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
