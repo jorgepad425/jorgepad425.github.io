@@ -1,18 +1,25 @@
 function addBook(){
     const text = document.getElementById("titleText");
     const genre = document.getElementById("genreText");
+
+    const mtext = document.getElementById("mtitle");
+    const mgen = document.getElementById("mgenre");
     let acceptable = true;
+    mtext.setAttribute("hidden", true);
+    mgen.setAttribute("hidden", true);
 
     if(text.value == ""){
-        window.alert("Missing title!");
+        mtext.removeAttribute("hidden");
         acceptable = false;
     }
     if(genre.value == "") {
-        window.alert("Missing genre!");
+        mgen.removeAttribute("hidden");
         acceptable = false;
     }
-    // Change this to a text warning under the input and not an obstructive window alert.
+
     if(acceptable == true){
+    mtext.setAttribute("hidden", true);
+    mgen.setAttribute("hidden", true);
     text.value = "";
     genre.value = "";
     }

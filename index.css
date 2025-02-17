@@ -28,3 +28,16 @@
     margin-right: auto;
     margin-top: 50px;
 }
+.missingdiv{
+    text-align: center;
+    margin-left: -150px;
+    margin-top: -10px;
+}
+.missing{
+    word-spacing: 10;
+    display: inline-block;
+    font-size: 15;
+    font-family: Arial;
+    color: red;
+    margin-right: 50px;
+}
