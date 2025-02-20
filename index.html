@@ -9,25 +9,30 @@
     <script src="index.js" defer></script>
 
     <title>Jorge's Booklist</title>
+
+    <template>
+      <div class="book"><li>
+        <div class="booktext">
+        <h3 class="title">TITLE</h3>
+        <h5 class="author">AUTHOR</h5>
+        <h5 class="genre">GENRE</h5>
+        <small class="isbn">ISBN</small>
+      </div></li></div>
+    </template>
   </head>
   <body>
     <h1 class="heading">Booklist</h1>
     <h3 class="heading">View and document your books here!</h3></div>
     
-    <div class = "input">
-      <p>Title:<input type = "text" id="titleText" name="Title" placeholder="Insert Book Name">
-          Genre:<input type = "text" id="genreText" name="Genre" placeholder="Insert Book Genre">
+    <div class = "input" id="inputList">
+      Title:<input required type = "text" id="titleText" name="Title" placeholder="..." onchange="textChanged(this)">
+          Genre:<input required type = "text" id="genreText" name="Genre" placeholder="..." onchange="textChanged(this)">
           <button type="button" id="submitButton" name="Submit" onclick="addBook()"> Submit </button>
-          </p>
+          
     </div>
-     <div class = "missingdiv">
-        <div hidden class="missing" id="mtitle">
-          Missing Title
-     </div>
-      <div hidden class="missing" id="mgenre">
-         Missing Genre
-      </div>
-    </div>
+        <p hidden class="missing" id="missingText">
+          Empty fields! Please fill the highlighted & resubmit!
+        </p>
 
     <div class = "booklist">
     <ul id = "list" class = "ul">

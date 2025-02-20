@@ -4,12 +4,28 @@ https://stackoverflow.com/questions/11128700/create-a-ul-and-fill-it-based-on-a-
 values as elements and not arrays.
 */
 
-var bookarray = [
-    ['Placeholder Book', 'Placeholder Genre'],
-    ['Great Gatsby', 'Tragedy']
-];
+/*
+Reading Status: Not Started, In Progressed, Finished
+Deleting Books
+
+Change bookarray from an array of arrays to an array of book objects
+book objects include: book(title, author, genre, isbn)
+Improve Whitespace Checking
+Allow usage of template for easier modifying
+*/
+class book{
+    constructor(title, genre){
+        this.title = title;
+        this.genre = genre;
+    }
+}
+
+var bookarray = [];
 
 (function () {
+    bookarray.push(new book("Placeholder Book", "Placeholder Genre"));
+    bookarray.push(new book("Great Gatsby", "Tragedy"));
+
     refreshList();
 })();
 
@@ -18,60 +34,61 @@ function getEle(s){
     return element;
 }
 
+function swap(i, j){
+    const temp = bookarray[i];
+    bookarray[i] = bookarray[j];
+    bookarray[j] = temp;
+
+}
+
 function refreshList(){
     while (getEle("list").firstChild) {
         getEle("list").removeChild(getEle("list").firstChild);
         }
 
     for(let i = 0; i<bookarray.length; i++){
-        let entry = document.createElement("li");
-        entry.innerHTML = '<div class="book"><li><div class="booktext"><h3>' + bookarray[i][0] + '</h3><h5>' + bookarray[i][1]+ '</h5></div></li></div>';
+        let entry = document.createElement("div");
+        entry.className = "book"; //<div class="book">
+        entry.innerHTML = '<li><div class="booktext"><h3>' + bookarray[i].title + '</h3><h5>' + bookarray[i].genre + '</h5></div></li>';
         getEle("list").appendChild(entry); 
     }
 }
 
-/*
-      <div class="book"><li>
-        <div class="booktext">
-        <h3>Book 1</h3>
-        <h5>Thriller</h5>
-      </div></li></div>
-      <div class="book"><li>
-        <div class="booktext">
-        <h3>Book 2</h3>
-        <h5>Horror</h5>
-      </div></li></div>
-*/
+function textChanged(ele){
+    if(ele.value != "")
+        ele.style.border = "2px solid black"
+}
 
 function addBook(){
     const text = getEle("titleText");
     const genre = getEle("genreText");
 
-    const mtext = document.getElementById("mtitle");
-    const mgen = document.getElementById("mgenre");
+    const missing = document.getElementById("missingText");
     let acceptable = true;
-    mtext.setAttribute("hidden", true);
-    mgen.setAttribute("hidden", true);
+    missing.setAttribute("hidden", true);
 
-    if(text.value == ""){
-        mtext.removeAttribute("hidden");
-        acceptable = false;
-    }
-    if(genre.value == "") {
-        mgen.removeAttribute("hidden");
-        acceptable = false;
+    var inputList = getEle("inputList").querySelectorAll("input[type=text]");
+    
+    for(let i = 0; i<inputList.length; i++){
+        let temp = inputList[i];
+        if(temp.value == ""){ // IMPROVE THE CHECK, WHITESPACE GETS ADDED
+            missing.removeAttribute("hidden");
+            acceptable = false;
+            temp.style.border = "2px solid lightcoral";
+        } 
+        else temp.style.border = "2px solid black";
     }
 
     if(acceptable == true){
-        mtext.setAttribute("hidden", true);
-        mgen.setAttribute("hidden", true);
+        missing.setAttribute("hidden", true);
 
-        let temp = [text.value, genre.value];
+        const temp = new book(text.value, genre.value);
         bookarray.push(temp);
 
         text.value = "";
         genre.value = "";
+
+        refreshList();
     }
     acceptable = true;
-    refreshList();
 }
