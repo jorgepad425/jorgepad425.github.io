@@ -13,10 +13,6 @@ book objects include: book(title, author, genre, isbn)
 Improve Whitespace Checking
 Allow usage of template for easier modifying
 
-ADD NEW INPUTS FOR: Title, Author, Genre, ISBN
-MODIFY THE REFRESH LIST (Occupy Template)
-ADDBOOK Should use the new constructor
-
 */
 class book{
     constructor(title, author, genre, isbn){
@@ -45,7 +41,6 @@ function swap(i, j){
     const temp = bookarray[i];
     bookarray[i] = bookarray[j];
     bookarray[j] = temp;
-
 }
 
 function refreshList(){
@@ -98,11 +93,22 @@ function addBook(){
         const temp = new book(text.value, author.value, genre.value, isbn.value==""?"N/A":isbn.value);
         bookarray.push(temp);
 
-        for(let i = 0; i<inputList.length; i++){
-            inputList[i].value = "";
-        }
+        for(let i = 0; i<inputList.length; i++) inputList[i].value = "";
 
         refreshList();
     }
     acceptable = true;
+}
+
+function deleteBook(book){
+    let index = -1;
+    const size = getEle("list").querySelectorAll("li").length;
+    for(let i = 0; i < size; i++)
+        if(getEle("list").querySelectorAll("li")[i].isEqualNode(book))
+             index = i;
+        
+    for(let j = index; j<bookarray.length; j++)
+            bookarray[j] = bookarray[j+1]
+    bookarray.pop();
+    refreshList();
 }

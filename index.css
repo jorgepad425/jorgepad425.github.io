@@ -4,6 +4,12 @@
     margin-right: auto;
 }
 
+.delete {
+    float: right;
+    position: relative;
+    right: 5px;
+    bottom: 22px;
+}
 .booklist {
     border: 15px double palevioletred;
     margin: 50px;
