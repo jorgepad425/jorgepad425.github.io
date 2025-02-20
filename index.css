@@ -4,10 +4,17 @@
     margin-right: auto;
 }
 
+.status{
+    float: right;
+    position: relative;
+    bottom: 125px;
+    right: 15px;
+}
+
 .delete {
     float: right;
     position: relative;
-    right: 5px;
+    left: 100px;
     bottom: 22px;
 }
 .booklist {

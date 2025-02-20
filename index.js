@@ -6,12 +6,13 @@ values as elements and not arrays.
 
 /*
 Reading Status: Not Started, In Progressed, Finished
-Deleting Books
-
-Change bookarray from an array of arrays to an array of book objects
-book objects include: book(title, author, genre, isbn)
 Improve Whitespace Checking
-Allow usage of template for easier modifying
+
+CSS Wishlist
+
+Confetti for finishing a book
+Better web visual overall
+Animation for deleting a book (Border closes in and disappears)
 
 */
 class book{
