@@ -12,19 +12,26 @@ Change bookarray from an array of arrays to an array of book objects
 book objects include: book(title, author, genre, isbn)
 Improve Whitespace Checking
 Allow usage of template for easier modifying
+
+ADD NEW INPUTS FOR: Title, Author, Genre, ISBN
+MODIFY THE REFRESH LIST (Occupy Template)
+ADDBOOK Should use the new constructor
+
 */
 class book{
-    constructor(title, genre){
+    constructor(title, author, genre, isbn){
         this.title = title;
+        this.author = author;
         this.genre = genre;
+        this.isbn = isbn;
     }
 }
 
 var bookarray = [];
 
 (function () {
-    bookarray.push(new book("Placeholder Book", "Placeholder Genre"));
-    bookarray.push(new book("Great Gatsby", "Tragedy"));
+    bookarray.push(new book("Book", "Author", "Genre", "ISBN"));
+    bookarray.push(new book("Great Gatsby", "F. Scott Fitzgerald", "Tragedy", "9780333791035"));
 
     refreshList();
 })();
@@ -47,10 +54,14 @@ function refreshList(){
         }
 
     for(let i = 0; i<bookarray.length; i++){
-        let entry = document.createElement("div");
-        entry.className = "book"; //<div class="book">
-        entry.innerHTML = '<li><div class="booktext"><h3>' + bookarray[i].title + '</h3><h5>' + bookarray[i].genre + '</h5></div></li>';
-        getEle("list").appendChild(entry); 
+        let temp = getEle("booktemplate").content.cloneNode(true);
+
+        temp.querySelector(".title").innerText = bookarray[i].title;
+        temp.querySelector(".author").innerText = bookarray[i].author;
+        temp.querySelector(".genre").innerText = bookarray[i].genre;
+        temp.querySelector(".isbn").innerText = bookarray[i].isbn;
+
+        getEle("list").appendChild(temp); 
     }
 }
 
@@ -62,6 +73,8 @@ function textChanged(ele){
 function addBook(){
     const text = getEle("titleText");
     const genre = getEle("genreText");
+    const author = getEle("authorText");
+    const isbn = getEle("isbnText");
 
     const missing = document.getElementById("missingText");
     let acceptable = true;
@@ -71,7 +84,7 @@ function addBook(){
     
     for(let i = 0; i<inputList.length; i++){
         let temp = inputList[i];
-        if(temp.value == ""){ // IMPROVE THE CHECK, WHITESPACE GETS ADDED
+        if(temp.value == "" && temp.id != "isbnText"){ // IMPROVE THE CHECK, WHITESPACE GETS ADDED
             missing.removeAttribute("hidden");
             acceptable = false;
             temp.style.border = "2px solid lightcoral";
@@ -82,11 +95,12 @@ function addBook(){
     if(acceptable == true){
         missing.setAttribute("hidden", true);
 
-        const temp = new book(text.value, genre.value);
+        const temp = new book(text.value, author.value, genre.value, isbn.value==""?"N/A":isbn.value);
         bookarray.push(temp);
 
-        text.value = "";
-        genre.value = "";
+        for(let i = 0; i<inputList.length; i++){
+            inputList[i].value = "";
+        }
 
         refreshList();
     }

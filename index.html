@@ -10,11 +10,11 @@
 
     <title>Jorge's Booklist</title>
 
-    <template>
+    <template id = "booktemplate">
       <div class="book"><li>
         <div class="booktext">
-        <h3 class="title">TITLE</h3>
-        <h5 class="author">AUTHOR</h5>
+        <h1 class="title">TITLE</h3>
+        <h3 class="author">AUTHOR</h5>
         <h5 class="genre">GENRE</h5>
         <small class="isbn">ISBN</small>
       </div></li></div>
@@ -26,7 +26,9 @@
     
     <div class = "input" id="inputList">
       Title:<input required type = "text" id="titleText" name="Title" placeholder="..." onchange="textChanged(this)">
+        Author:<input required type = "text" id="authorText" name="Author" placeholder="..." onchange="textChanged(this)">
           Genre:<input required type = "text" id="genreText" name="Genre" placeholder="..." onchange="textChanged(this)">
+            ISBN:<input type = "text" id="isbnText" name="Genre" placeholder="Optional...">
           <button type="button" id="submitButton" name="Submit" onclick="addBook()"> Submit </button>
           
     </div>
