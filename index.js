@@ -5,14 +5,22 @@ values as elements and not arrays.
 */
 
 /*
-Reading Status: Not Started, In Progressed, Finished
 Improve Whitespace Checking
+Improve UI for mobile devices
+Ability to rate books (0.0 - 5.0)
+Ability to search books by title/author (refreshList could have an if condition!)
+    - Improved filtering option (genre, status)
+Finishing book celebratory
+MAYBE NOT GROUPING BOOKS :(
+Display book covers via API (Google Library/Open Library)
 
 CSS Wishlist
 
 Confetti for finishing a book
-Better web visual overall
+Better background web visual overall
+Better border for books and the "bookshelf"
 Animation for deleting a book (Border closes in and disappears)
+Visually better drop down selection
 
 */
 class book{

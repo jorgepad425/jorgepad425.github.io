@@ -13,8 +13,8 @@
     <template id = "booktemplate">
       <div class="book"><li>
         <div class="booktext">
-        <h1 class="title">TITLE</h3>
-        <h3 class="author">AUTHOR</h5>
+        <h2 class="title">TITLE</h2>
+        <h3 class="author">AUTHOR</h3>
         <h5 class="genre">GENRE</h5>
         <small class="isbn">ISBN</small>
         <select name="Book Status" class="status">
@@ -25,6 +25,13 @@
         <button type="button" class="delete" onclick="deleteBook(this.parentNode.parentNode)"> 
           <img src="trashicon.png" alt="delete" width="30" height="35"/> 
             </button>
+        <div class="star">
+          <input type="radio" class="rating1" name="rating" value="1"/>
+          <input type="radio" class="rating2" name="rating" value="2"/>
+          <input type="radio" class="rating3" name="rating" value="3"/>
+          <input type="radio" class="rating4" name="rating" value="4"/>
+          <input type="radio" class="rating5" name="rating" value="5"/>
+        </div>
       </div></li></div>
     </template>
   </head>

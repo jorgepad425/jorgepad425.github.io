@@ -1,3 +1,19 @@
+.star, .delete{
+    display: flex;
+    position: relative;
+    float: right;
+    bottom: 20px;
+    left: 120px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.rating1, .rating2, .rating3, .rating4, .rating5{
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+    top: 15px;
+}
+
 .heading {
     max-width: fit-content;
     margin-left: auto;
@@ -10,20 +26,11 @@
     bottom: 125px;
     right: 15px;
 }
-
-.delete {
-    float: right;
-    position: relative;
-    left: 100px;
-    bottom: 22px;
-}
 .booklist {
     border: 15px double palevioletred;
     margin: 50px;
 }
 .book{
-    margin-left: auto;
-    margin-right: auto;
     color: black;
     border: 10px solid palegoldenrod;
     margin: 50px;
