@@ -121,3 +121,16 @@ function deleteBook(book){
     bookarray.pop();
     refreshList();
 }
+
+function selectStar(rating){
+    const star = rating.getAttribute("value");
+    console.log(star);
+    const radio = rating.parentNode.querySelectorAll("input[type=radio]");
+    for(let i = 0; i < 5; i++){
+        const pluh = ".starsymbol" + (i+1);
+        const staritem = rating.parentNode.querySelector(pluh);
+        if(radio[i].getAttribute("value") <= star)
+            staritem.setAttribute("src", "goodstar.png");
+        else staritem.setAttribute("src", "badstar.png");
+    }
+}

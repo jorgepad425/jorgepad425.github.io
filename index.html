@@ -25,12 +25,17 @@
         <button type="button" class="delete" onclick="deleteBook(this.parentNode.parentNode)"> 
           <img src="trashicon.png" alt="delete" width="30" height="35"/> 
             </button>
-        <div class="star">
-          <input type="radio" class="rating1" name="rating" value="1"/>
-          <input type="radio" class="rating2" name="rating" value="2"/>
-          <input type="radio" class="rating3" name="rating" value="3"/>
-          <input type="radio" class="rating4" name="rating" value="4"/>
-          <input type="radio" class="rating5" name="rating" value="5"/>
+        <div class="rating">
+          <input type="radio" class="badstar" name="rating" onclick=selectStar(this) value="1" style="height:20px; width:20px;"/>
+            <img src="badstar.png" alt="star" width="45" height="45" class="starsymbol1"/>
+          <input type="radio" class="badstar" name="rating" onclick=selectStar(this) value="2" style="height:20px; width:20px;"/>
+            <img src="badstar.png" alt="star" width="45" height="45" class="starsymbol2"/>
+          <input type="radio" class="badstar" name="rating" onclick=selectStar(this) value="3" style="height:20px; width:20px;"/>
+            <img src="badstar.png" alt="star" width="45" height="45" class="starsymbol3"/>
+          <input type="radio" class="badstar" name="rating" onclick=selectStar(this) value="4" style="height:20px; width:20px;"/>
+            <img src="badstar.png" alt="star" width="45" height="45" class="starsymbol4"/>
+          <input type="radio" class="badstar" name="rating" onclick=selectStar(this) value="5" style="height:20px; width:20px;"/>
+            <img src="badstar.png" alt="star" width="45" height="45" class="starsymbol5"/>
         </div>
       </div></li></div>
     </template>
