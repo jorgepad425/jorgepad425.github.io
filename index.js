@@ -24,19 +24,20 @@ Visually better drop down selection
 
 */
 class book{
-    constructor(title, author, genre, isbn){
+    constructor(title, author, genre, isbn, rating){
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.isbn = isbn;
+        this.rating = rating;
     }
 }
 
 var bookarray = [];
 
 (function () {
-    bookarray.push(new book("Book", "Author", "Genre", "ISBN"));
-    bookarray.push(new book("Great Gatsby", "F. Scott Fitzgerald", "Tragedy", "9780333791035"));
+    bookarray.push(new book("Book", "Author", "Genre", "ISBN", 1));
+    bookarray.push(new book("Great Gatsby", "F. Scott Fitzgerald", "Tragedy", "9780333791035", 5));
 
     refreshList();
 })();
@@ -64,11 +65,21 @@ function refreshList(){
         temp.querySelector(".author").innerText = bookarray[i].author;
         temp.querySelector(".genre").innerText = bookarray[i].genre;
         temp.querySelector(".isbn").innerText = bookarray[i].isbn;
+        refreshStar(bookarray[i], temp);
 
         getEle("list").appendChild(temp); 
     }
 }
-
+function refreshStar(book, item){
+    const radio = item.querySelectorAll("input[type=radio]");
+    for(let i = 0; i < 5; i++){
+        const pluh = ".starsymbol" + (i+1);
+        const staritem = item.querySelector(pluh);
+        if(radio[i].getAttribute("value") <= book.rating)
+            staritem.setAttribute("src", "goodstar.png");
+        else staritem.setAttribute("src", "badstar.png");
+    }
+}
 function textChanged(ele){
     if(ele.value != "")
         ele.style.border = "2px solid black"
@@ -99,7 +110,7 @@ function addBook(){
     if(acceptable == true){
         missing.setAttribute("hidden", true);
 
-        const temp = new book(text.value, author.value, genre.value, isbn.value==""?"N/A":isbn.value);
+        const temp = new book(text.value, author.value, genre.value, isbn.value==""?"N/A":isbn.value, 0);
         bookarray.push(temp);
 
         for(let i = 0; i<inputList.length; i++) inputList[i].value = "";
@@ -110,12 +121,7 @@ function addBook(){
 }
 
 function deleteBook(book){
-    let index = -1;
-    const size = getEle("list").querySelectorAll("li").length;
-    for(let i = 0; i < size; i++)
-        if(getEle("list").querySelectorAll("li")[i].isEqualNode(book))
-             index = i;
-        
+    let index = getIdxOfBook(book, 0);
     for(let j = index; j<bookarray.length; j++)
             bookarray[j] = bookarray[j+1]
     bookarray.pop();
@@ -124,12 +130,31 @@ function deleteBook(book){
 
 function selectStar(rating){
     const star = rating.getAttribute("value");
-    console.log(star);
-    const radio = rating.parentNode.querySelectorAll("input[type=radio]");
+    index = getIdxOfBook(rating, 3)
+    console.log(index);
+    bookarray[index].rating = star;
+    refreshStar(bookarray[index], rating.parentNode.parentNode.parentNode)
+}
+
+/* UTILITY FUNCTIONS */
+function getIdxOfBook(item, recursion){
+    const size = getEle("list").querySelectorAll("li").length
+    let index = -1;
+    for(let j = 0; j < recursion; j++)
+        item = item.parentNode;
+    for(let i = 0; i < size; i++)
+        if(getEle("list").querySelectorAll("li")[i].isEqualNode(item))
+             index = i;
+    if(index == -1) return null;
+    else return index;
+}
+
+function refreshStar(book, item){
+    const radio = item.querySelectorAll("input[type=radio]");
     for(let i = 0; i < 5; i++){
         const pluh = ".starsymbol" + (i+1);
-        const staritem = rating.parentNode.querySelector(pluh);
-        if(radio[i].getAttribute("value") <= star)
+        const staritem = item.querySelector(pluh);
+        if(radio[i].getAttribute("value") <= book.rating)
             staritem.setAttribute("src", "goodstar.png");
         else staritem.setAttribute("src", "badstar.png");
     }
