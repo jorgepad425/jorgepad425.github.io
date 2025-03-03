@@ -7,9 +7,8 @@ values as elements and not arrays.
 /*
 Improve Whitespace Checking
 Improve UI for mobile devices
-Ability to rate books (0.0 - 5.0)
-Ability to search books by title/author (refreshList could have an if condition!)
-    - Improved filtering option (genre, status)
+Improved filtering option (genre, status) - Easy?
+Make filtering not be capsensitive :(
 Finishing book celebratory
 MAYBE NOT GROUPING BOOKS :(
 Display book covers via API (Google Library/Open Library)
@@ -30,10 +29,14 @@ class book{
         this.genre = genre;
         this.isbn = isbn;
         this.rating = rating;
+        this.ID = INTERNAL_ID++;
+        bookorder.push(this.ID);
     }
 }
 
 var bookarray = [];
+var bookorder = [];
+var INTERNAL_ID = 0;
 
 (function () {
     bookarray.push(new book("Book", "Author", "Genre", "ISBN", 1));
@@ -41,11 +44,6 @@ var bookarray = [];
 
     refreshList();
 })();
-
-function getEle(s){
-    const element = document.getElementById(s);
-    return element;
-}
 
 function swap(i, j){
     const temp = bookarray[i];
@@ -57,14 +55,17 @@ function refreshList(){
     while (getEle("list").firstChild) {
         getEle("list").removeChild(getEle("list").firstChild);
         }
-
+    const s = getEle("titleFilter").value;
     for(let i = 0; i<bookarray.length; i++){
         let temp = getEle("booktemplate").content.cloneNode(true);
+        const title = bookarray[i].title;
+        if(!(title.includes(s,0)) && ("" != s)) continue;
 
         temp.querySelector(".title").innerText = bookarray[i].title;
         temp.querySelector(".author").innerText = bookarray[i].author;
         temp.querySelector(".genre").innerText = bookarray[i].genre;
         temp.querySelector(".isbn").innerText = bookarray[i].isbn;
+        temp.querySelector(".INTERNAL_ID").innerText = bookarray[i].ID;
         refreshStar(bookarray[i], temp);
 
         getEle("list").appendChild(temp); 
@@ -122,8 +123,11 @@ function addBook(){
 
 function deleteBook(book){
     let index = getIdxOfBook(book, 0);
-    for(let j = index; j<bookarray.length; j++)
-            bookarray[j] = bookarray[j+1]
+    for(let j = index; j<bookarray.length; j++){
+            bookarray[j] = bookarray[j+1];
+            bookorder[j] = bookorder[j+1];
+    }
+    bookorder.pop();
     bookarray.pop();
     refreshList();
 }
@@ -137,18 +141,22 @@ function selectStar(rating){
 }
 
 /* UTILITY FUNCTIONS */
+function getEle(s){
+    const element = document.getElementById(s);
+    return element;
+}
+
 function getIdxOfBook(item, recursion){
-    const size = getEle("list").querySelectorAll("li").length
+    const size = bookorder.length;
     let index = -1;
     for(let j = 0; j < recursion; j++)
         item = item.parentNode;
     for(let i = 0; i < size; i++)
-        if(getEle("list").querySelectorAll("li")[i].isEqualNode(item))
-             index = i;
-    if(index == -1) return null;
+        if(bookorder[i] == item.querySelector(".INTERNAL_ID").innerText)
+            index = i;
+    if(index==-1) return null;
     else return index;
 }
-
 function refreshStar(book, item){
     const radio = item.querySelectorAll("input[type=radio]");
     for(let i = 0; i < 5; i++){

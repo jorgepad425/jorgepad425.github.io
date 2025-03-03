@@ -55,19 +55,25 @@ input[type="radio"] { display: flex; cursor:pointer; position: relative; bottom:
     margin-left: 10px;
     margin-block-start: 10px;
 }
+
+input[type=text]{
+    box-sizing: border-box;
+    transition: 0.2s;
+    border: 2px solid black;
+    outline: none;
+    margin-bottom: 15px
+}
 .input {
     max-width: fit-content;
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
 }
-input[type=text]{
-    box-sizing: border-box;
-    transition: 0.2s;
-    border: 2px solid black;
-    outline: none;
+.filter{
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
-
 .missing{
     margin-top: 10px;
     text-align: center;

@@ -12,6 +12,7 @@
 
     <template id = "booktemplate">
       <div class="book"><li>
+        <div class="INTERNAL_ID" style="display: none">ID</div>
         <div class="booktext">
         <h2 class="title">TITLE</h2>
         <h3 class="author">AUTHOR</h3>
@@ -50,8 +51,11 @@
           Genre:<input required type = "text" id="genreText" name="Genre" placeholder="..." onchange="textChanged(this)">
             ISBN:<input type = "text" id="isbnText" name="Genre" placeholder="Optional...">
           <button type="button" id="submitButton" name="Submit" onclick="addBook()"> Submit </button>
-          
-    </div>
+      </div>
+      <div class = "filter" id="filterList">
+      Filter by Title:<input type = "text" id="titleFilter" name="Title Filter" placeholder="..." onkeyup="refreshList()">  <!--onchange="textChanged(this)">-->
+        Filter by Author<input type = "text" id="authorFilter" name="Author Filter" placeholder="..." onkeyup="refreshList()"> <!--onchange="textChanged(this)">-->
+      </div>
         <p hidden class="missing" id="missingText">
           Empty fields! Please fill the highlighted & resubmit!
         </p>
