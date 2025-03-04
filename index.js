@@ -6,7 +6,6 @@ values as elements and not arrays.
 
 /*
 Improve Whitespace Checking
-Improve UI for mobile devices
 Improved filtering option (genre, status) - Easy?
 Make filtering not be capsensitive :(
 Finishing book celebratory
@@ -15,6 +14,7 @@ Display book covers via API (Google Library/Open Library)
 
 CSS Wishlist
 
+Improve UI for mobile devices
 Confetti for finishing a book
 Better background web visual overall
 Better border for books and the "bookshelf"
@@ -55,14 +55,18 @@ function refreshList(){
     while (getEle("list").firstChild) {
         getEle("list").removeChild(getEle("list").firstChild);
         }
-    const s = getEle("titleFilter").value;
+    const t = getEle("titleSearch").value.toLowerCase();
+    const a = getEle("authorSearch").value.toLowerCase();
     for(let i = 0; i<bookarray.length; i++){
         let temp = getEle("booktemplate").content.cloneNode(true);
         const title = bookarray[i].title;
-        if(!(title.includes(s,0)) && ("" != s)) continue;
+        const author = bookarray[i].author;
+        
+        if(!(title.toLowerCase().includes(t,0)) && ("" != t)) continue;
+        if(!(author.toLowerCase().includes(a,0)) && ("" !=a)) continue;
 
-        temp.querySelector(".title").innerText = bookarray[i].title;
-        temp.querySelector(".author").innerText = bookarray[i].author;
+        temp.querySelector(".title").innerText = title;
+        temp.querySelector(".author").innerText = author;
         temp.querySelector(".genre").innerText = bookarray[i].genre;
         temp.querySelector(".isbn").innerText = bookarray[i].isbn;
         temp.querySelector(".INTERNAL_ID").innerText = bookarray[i].ID;

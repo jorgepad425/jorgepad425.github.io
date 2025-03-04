@@ -52,9 +52,9 @@
             ISBN:<input type = "text" id="isbnText" name="Genre" placeholder="Optional...">
           <button type="button" id="submitButton" name="Submit" onclick="addBook()"> Submit </button>
       </div>
-      <div class = "filter" id="filterList">
-      Filter by Title:<input type = "text" id="titleFilter" name="Title Filter" placeholder="..." onkeyup="refreshList()">  <!--onchange="textChanged(this)">-->
-        Filter by Author<input type = "text" id="authorFilter" name="Author Filter" placeholder="..." onkeyup="refreshList()"> <!--onchange="textChanged(this)">-->
+      <div class = "search" id="searchList">
+      Search by Title:<input type = "text" id="titleSearch" name="Title Search" placeholder="..." onkeyup="refreshList()">  <!--onchange="textChanged(this)">-->
+        Search by Author<input type = "text" id="authorSearch" name="Author Search" placeholder="..." onkeyup="refreshList()"> <!--onchange="textChanged(this)">-->
       </div>
         <p hidden class="missing" id="missingText">
           Empty fields! Please fill the highlighted & resubmit!
