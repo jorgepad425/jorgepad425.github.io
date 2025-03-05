@@ -3,10 +3,10 @@
     position: relative;
     float: right;
     bottom: 20px;
-    left: 120px;    
-    margin-left: 10px;
-    margin-right: 10px;
+    left: 120px;
+    margin: 0 10px; 
 }
+
 .starsymbol1, .starsymbol2, .starsymbol3, .starsymbol4, .starsymbol5{
     display: flex;
     position: relative;
@@ -14,7 +14,14 @@
     bottom: 9px;
     pointer-events: none;
 }
-input[type="radio"] { display: flex; cursor:pointer; position: relative; bottom: -5px; left: 10px;}
+
+input[type="radio"]{
+    display: flex;
+    cursor: pointer;
+    position: relative;
+    bottom: -5px;
+    left: 10px;
+}
 
 .delete{
     display: flex;
@@ -22,15 +29,12 @@ input[type="radio"] { display: flex; cursor:pointer; position: relative; bottom:
     float: right;
     bottom: 20px;
     left: 120px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 0 10px; 
 }
 
-
-.heading {
+.heading{
     max-width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;  
 }
 
 .status{
@@ -39,49 +43,53 @@ input[type="radio"] { display: flex; cursor:pointer; position: relative; bottom:
     bottom: 125px;
     right: 15px;
 }
-.booklist {
+
+.booklist{
     border: 15px double palevioletred;
     margin: 50px;
 }
+
 .book{
     color: black;
-    border: 10px solid palegoldenrod;
-    margin: 50px;
+    border: 2px solid goldenrod;
+    margin: 30px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 10px gray;
+    transition: all 0.15s ease;
 }
-.ul {
+.book:hover{
+    border-color: gold;
+}
+
+.ul{
     list-style-type: none;
 }
+
 .booktext{
     margin-left: 10px;
     margin-block-start: 10px;
 }
 
-input[type=text]{
+input[type="text"]{
     box-sizing: border-box;
     transition: 0.2s;
     border: 2px solid black;
     outline: none;
-    margin-bottom: 15px
+    margin-bottom: 15px;
 }
-.input {
+
+.input, .search, .missing{
     max-width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
+    margin: 0 auto;
 }
-.search{
-    max-width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-}
+
 .missing{
     margin-top: 10px;
     text-align: center;
-    max-width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    word-spacing: 10;
-    font-size: 15;
-    font-family: Arial;
+    word-spacing: 10px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
     color: red;
 }

@@ -10,6 +10,7 @@
 
     <title>Jorge's Booklist</title>
 
+    <!-- Template for a Book -->
     <template id = "booktemplate">
       <div class="book"><li>
         <div class="INTERNAL_ID" style="display: none">ID</div>
@@ -40,6 +41,32 @@
         </div>
       </div></li></div>
     </template>
+
+    <!-- Template for Filters style="display: none" -->
+    <template id="filterTemplate">
+      <div class="filter">
+        <select name="Category" class="filterCat" onchange="changeCategory(this)">
+          <optgroup label="<- Ratings ->">
+            <option value="0">1</option>
+            <option value="1">2</option>
+            <option value="2">3</option>
+            <option value="3">4</option>
+            <option value="4">5</option>
+          </optgroup>
+          <optgroup label="<- Status ->">
+            <option value="0">Not Started</option>
+            <option value="1">In Progress</option>
+            <option value="0">Finished</option>
+          </optgroup>
+          <optgroup label = "<- Genre ->">
+          </optgroup>
+        </select>
+        <button type="button" class="deleteFilter" onclick="deleteFilter(this.parentNode)"> 
+          <img src="trashicon.png" alt="Delete Filter" width="35" height="35"/> 
+            </button>
+       <div class="INTERNAL_ID">x</div></div>
+    </template>
+
   </head>
   <body>
     <h1 class="heading">Booklist</h1>
@@ -55,6 +82,12 @@
       <div class = "search" id="searchList">
       Search by Title:<input type = "text" id="titleSearch" name="Title Search" placeholder="..." onkeyup="refreshList()">  <!--onchange="textChanged(this)">-->
         Search by Author<input type = "text" id="authorSearch" name="Author Search" placeholder="..." onkeyup="refreshList()"> <!--onchange="textChanged(this)">-->
+      </div>
+      <button type="button" class="addFilter" onclick="addFilter()"> 
+        Add Filters +
+          </button>
+      <div class = "filter" id="filterList">
+
       </div>
         <p hidden class="missing" id="missingText">
           Empty fields! Please fill the highlighted & resubmit!
