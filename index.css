@@ -1,3 +1,17 @@
+.backgroundImg{
+    position: absolute;
+    top: -20px;
+    z-index: -1;
+    width: 100%;
+}
+.navbar{
+    position: relative;
+    top: 150px;
+}
+.nav-link{
+    cursor: pointer;
+}
+
 .rating{
     display: flex;
     position: relative;
@@ -33,8 +47,27 @@ input[type="radio"]{
 }
 
 .heading{
-    max-width: fit-content;
-    margin: 0 auto;  
+    position: absolute;
+    top: 17.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: 'Georgia', serif;
+    text-shadow: 0 0 10px #050505, 0 0 20px #ffffff;
+    text-align: center;
+    width: 100%;
+    .largerHeading{
+        font-size: 7vw;
+        margin: 0;
+    }
+    .smallerHeading{
+        position: absolute;
+        font-size: 3vw;
+        margin: 0;
+        top: 85%; 
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 .status{
@@ -45,8 +78,14 @@ input[type="radio"]{
 }
 
 .booklist{
-    border: 15px double palevioletred;
-    margin: 50px;
+    position: relative;
+    width: 100%;
+    width: 800px;
+    padding: 20px;
+    bottom: -100px;
+    box-sizing: content-box;
+    margin: 0 auto;
+    border: 25px double brown;
 }
 
 .book{
