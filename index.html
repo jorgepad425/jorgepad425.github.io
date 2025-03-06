@@ -12,21 +12,29 @@
 
     <!-- Template for a Book -->
     <template id = "booktemplate">
-      <div class="book"><li>
+      <li>
+        <img class="bookImage" src="a" alt="Book Image"/>
+        <p class="rainbow-text" hidden></p>
+      <div class="book">
         <div class="INTERNAL_ID" style="display: none">ID</div>
+        <div class="bookContent">
         <div class="booktext">
-        <h2 class="title">TITLE</h2>
-        <h3 class="author">AUTHOR</h3>
-        <h5 class="genre">GENRE</h5>
-        <small class="isbn">ISBN</small>
-        <select name="Book Status" class="status">
+          <h2 class="title">TITLE</h2>
+          <h3 class="author">AUTHOR</h3>
+          <h5 class="genre">GENRE</h5>
+          <small class="isbn">ISBN</small>
+        </div>
+
+        <select name="Book Status" class="status" onchange="celebratory(this)">
           <option value="0">&#9746; Not Started</option>
           <option value="1">&#9744; In Progress</option>
           <option value="2">&#9745; Finished</option>
         </select>
+        
         <button type="button" class="delete" onclick="deleteBook(this.parentNode.parentNode)"> 
           <img src="trashicon.png" alt="delete" width="30" height="35"/> 
-            </button>
+        </button>
+
         <div class="rating">
           <input type="radio" class="badstar" name="rating" onclick=selectStar(this) value="1" style="height:20px; width:20px;"/>
             <img src="badstar.png" alt="star" width="45" height="45" class="starsymbol1"/>
@@ -39,7 +47,7 @@
           <input type="radio" class="badstar" name="rating" onclick=selectStar(this) value="5" style="height:20px; width:20px;"/>
             <img src="badstar.png" alt="star" width="45" height="45" class="starsymbol5"/>
         </div>
-      </div></li></div>
+      </div></div></li>
     </template>
 
     <!-- Template for Filters style="display: none" -->
@@ -61,52 +69,65 @@
           <optgroup label = "<- Genre ->">
           </optgroup>
         </select>
-        <button type="button" class="deleteFilter" onclick="deleteFilter(this.parentNode)"> 
-          <img src="trashicon.png" alt="Delete Filter" width="35" height="35"/> 
+        <button type="button" class="deleteFilter" onclick="deleteFilter(this.parentNode)" style="height:25px;width:25px"> 
+            x
             </button>
-       <div class="INTERNAL_ID">x</div></div>
+       <div class="INTERNAL_ID" hidden>x</div></div>
     </template>
   <!-- Actual Page Here -->
   </head>
   <body>
-    <img src="Background Title.jpg" alt="Bookshelves" width="1280" height="300" class="backgroundImg"/>
-    <div class="heading">
+    <img src="book-shelves-david-madison.jpg" alt="Bookshelves" width="1280" height="100" class="backgroundImg"/>
+    <div class="heading container">
       <h1 class="largerHeading">Booklist</h1>
       <h3 class="smallerHeading">View and document your books here!</h3></div>
     </div>
-    <div class = "input" id="inputList">
-      Title:<input required type = "text" id="titleText" name="Title" placeholder="..." onchange="textChanged(this)">
-        Author:<input required type = "text" id="authorText" name="Author" placeholder="..." onchange="textChanged(this)">
-          Genre:<input required type = "text" id="genreText" name="Genre" placeholder="..." onchange="textChanged(this)">
-            ISBN:<input type = "text" id="isbnText" name="Genre" placeholder="Optional...">
-          <button type="button" id="submitButton" name="Submit" onclick="addBook()"> Submit </button>
-      </div>
       <div class = "search" id="searchList">
       Search by Title:<input type = "text" id="titleSearch" name="Title Search" placeholder="..." onkeyup="refreshList()">  <!--onchange="textChanged(this)">-->
         Search by Author<input type = "text" id="authorSearch" name="Author Search" placeholder="..." onkeyup="refreshList()"> <!--onchange="textChanged(this)">-->
       </div>
-      <nav class="navbar navbar-expand-sm bg-light">
+      <nav class="navbar navbar-expand-sm" style="background-color: rgb(245, 222, 193);">
         <ul class="navbar-nav">
-            <a class="nav-link" onclick="addBook()">Link 1</a>
-            <a class="nav-link" href="#">Link 2</a>
-            <a class="nav-link" href="#">Link 3</a>
+            <a class="nav-link" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#input">Add Books</a>
+            <a class="nav-link" onclick="addFilter()">Add Filter</a>
+            <a class="nav-link">Sort (Not Implemented)</a>
         </ul>
-      
       </nav>
-      <button type="button" class="addFilter" onclick="addFilter()"> 
-        Add Filters +
-          </button>
-      <div class = "filter" id="filterList">
-
-      </div>
-        <p hidden class="missing" id="missingText">
-          Empty fields! Please fill the highlighted & resubmit!
-        </p>
+      <nav class="navbar navbar-expand-sm" style="background-color: rgb(245, 222, 193);">
+      <p class="filter"> List of Included Filters:</p>
+    <div class = "filter" id="filterList">
+    </div>
+    </nav>
 
     <div class = "booklist">
     <ul id = "list" class = "ul">
 
     </ul>
+    </div>
+
+    <!-- CREDIT TO CHATGPT, For the modal framework. I just attached my options and modified it a bit-->
+    <div class="modal fade" id="input" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Adding a Book</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div id="inputList" class="modal-body">
+            Title:<input required type = "text" id="titleText" class="form-control" name="Title" placeholder="..." >
+            Author:<input required type = "text" id="authorText" class="form-control" name="Author" placeholder="..." >
+            Genre:<input required type = "text" id="genreText" class="form-control"name="Genre" placeholder="..." >
+            ISBN:<input type = "text" id="isbnText" class="form-control" name="Genre" placeholder="Optional...">
+          </div>
+          <div class="modal-footer">
+            <p hidden class="missing" id="missingText">
+              Empty fields! Please fill the highlighted & resubmit!
+            </p>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="submitButton" name="Submit" onclick="addBook()">Submit</button>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   </body>

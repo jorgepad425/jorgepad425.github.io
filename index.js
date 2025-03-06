@@ -6,20 +6,11 @@ values as elements and not arrays.
 
 /*
 Improve Whitespace Checking
-Add Sorting
 Finishing book celebratory
-Maybe Group Books?
-Display book covers via API (Google Library/Open Library)
 
 
 CSS Wishlist
-
-Improve UI for mobile devices
-Confetti for finishing a book
 Better background web visual overall
-Better border for books and the "bookshelf"
-Animation for deleting a book (Border closes in and disappears)
-Visually better drop down selection
 
 */
 class book{
@@ -42,10 +33,10 @@ var INTERNAL_ID = 0;
 var filtercount = 0;
 var filterarray = [];
 
-(function () {
+(function (){
     bookarray.push(new book("Book", "Author", "Genre", "ISBN", 0, 1));
-    bookarray.push(new book("Great Gatsby", "F. Scott Fitzgerald", "Tragedy", "9780333791035", 1, 3));
-    bookarray.push(new book("Lamentable Tale of Sad Mouse", "Miss Cheese Veus", "Tragedy", "1234567890", 2, 5)); 
+    bookarray.push(new book("The Great Gatsby", "F. Scott Fitzgerald", "Tragedy", "9780333791035", 1, 3));
+    bookarray.push(new book("Lamentable Tale of a Sad Mouse", "Miss Cheese Veus", "Tragedy", "1234567890", 2, 5)); 
 
     refreshList();
 })();
@@ -55,9 +46,26 @@ function swap(i, j){
     bookarray[i] = bookarray[j];
     bookarray[j] = temp;
 }
-
-function refreshList(){
-    while (getEle("list").firstChild) {
+function delay(ms){
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+async function celebratory(dropdown){
+    bookarray[getIdxOfBook(dropdown.parentNode.parentNode.parentNode)].status = dropdown.selectedIndex;
+    if(dropdown.selectedIndex==2){
+        const rainbow = dropdown.parentNode.parentNode.parentNode.querySelector(".rainbow-text");
+        const s = "Congratulations! How was it?";
+        rainbow.removeAttribute("hidden");
+        for(let i = 0; i<s.length+1; i++, await delay(75))
+           rainbow.innerText = s.substring(0, i);
+        await delay(2000);
+        for(let i = 0; i<s.length+1; i++, await delay(75))
+            rainbow.innerText = s.substring(0, s.length+1-i);
+        rainbow.innerText= "";
+        rainbow.setAttribute("hidden", "");
+    }
+}
+async function refreshList(){
+    while (getEle("list").firstChild){
         getEle("list").removeChild(getEle("list").firstChild);
         }
     refreshFilters();
@@ -67,6 +75,7 @@ function refreshList(){
         let temp = getEle("booktemplate").content.cloneNode(true);
         const title = bookarray[i].title;
         const author = bookarray[i].author;
+        const image = await fetchBookCover(title, author);
         
         // SEARCH BEGINS FIRST
         if(!(title.toLowerCase().includes(t,0)) && ("" != t)) continue;
@@ -78,6 +87,7 @@ function refreshList(){
             if(filterarray[j] <= 4 && filterarray[j]+1 == bookarray[i].rating){ isFiltered = false;}
             else if(filterarray[j] > 4 && filterarray[j]<8 && filterarray[j]-5 == bookarray[i].status){ isFiltered = false; }
             else {
+                // THIS IS AI GENERATED, CREDIT TO GPT
                 const genre = getEle("filterList")
                 .querySelectorAll(".filter .filterCat")[j]
                 ?.options[filterarray[j]]
@@ -87,18 +97,45 @@ function refreshList(){
             }
         }
         if(isFiltered && filterarray.length!=0) continue;
+        
         temp.querySelector(".title").innerText = title;
         temp.querySelector(".author").innerText = author;
         temp.querySelector(".genre").innerText = bookarray[i].genre;
         temp.querySelector(".isbn").innerText = bookarray[i].isbn;
         temp.querySelector(".status").selectedIndex = bookarray[i].status;
+        temp.querySelector(".bookImage").src = image;
         temp.querySelector(".INTERNAL_ID").innerText = bookarray[i].ID;
 
         refreshStar(bookarray[i], temp);
 
         getEle("list").appendChild(temp);
+
     }
 }
+async function fetchBookCover(title, author){
+    const placeholder = `book-cover-placeholder.png`;
+    try{ // https://openlibrary.org/search.json?title=the+lord+of+the+rings&?author=Tolkien&limit=1
+        // ?CATEGORY=Blah+blah+blah
+        // &?CATEGORY=BLAH
+        // &limit=x 
+        // If I were to improve this, have an alternative where it searches up with solely ISBN.
+        const response = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&limit=1`);
+        if (!response.ok){
+            return placeholder; // Can't reach openlibrary
+        }
+        const data = await response.json();
+
+        if (data.docs.length > 0){
+            const book = data.docs[0];
+            return book.cover_i? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`: placeholder;
+        } else{
+            return placeholder;
+        }
+    } catch (error){
+        return placeholder;
+    }
+}
+
 function changeCategory(category){
     filterarray[getIdxOfFilter(category.parentNode)] = category.selectedIndex;
     refreshList();
@@ -166,7 +203,6 @@ function addBook(){
         } 
         else temp.style.border = "2px solid black";
     }
-
     if(acceptable == true){
         missing.setAttribute("hidden", true);
 
@@ -174,8 +210,10 @@ function addBook(){
         bookarray.push(temp);
 
         for(let i = 0; i<inputList.length; i++) inputList[i].value = "";
-
+        bootstrap.Modal.getInstance(getEle("input")).hide();
         refreshList();
+    } else {
+        missing.removeAttribute("hidden");
     }
     acceptable = true;
 }

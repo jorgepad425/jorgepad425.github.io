@@ -1,134 +1,202 @@
 .backgroundImg{
     position: absolute;
-    top: -20px;
+    top: 0;
     z-index: -1;
+    width: 120%;
+    height: 50vh;
+    object-fit: cover;
+}
+
+body{
+    background-color: floralwhite;
+}
+.navbar-nav .nav-link{
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    padding: 1px 0;
+}
+
+.navbar-nav{
+    display: flex;
     width: 100%;
 }
 .navbar{
-    position: relative;
-    top: 150px;
-}
-.nav-link{
-    cursor: pointer;
+    padding: 15px 0;
+    height: auto;
 }
 
-.rating{
+.rating, .delete{
     display: flex;
-    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+}
+.delete{
+    position: absolute;
+    top: 50px;
+    right: 10px;
+}
+.rating{
     float: right;
-    bottom: 20px;
-    left: 120px;
-    margin: 0 10px; 
+    position: absolute;
+    top: 140px;
+    right: -20px;
+}
+.bookImage{
+    max-width: 15%;
+    height: auto;
+    display: block;
 }
 
 .starsymbol1, .starsymbol2, .starsymbol3, .starsymbol4, .starsymbol5{
-    display: flex;
     position: relative;
-    left: -22.3px;
-    bottom: 9px;
     pointer-events: none;
+    top: -43px;
+    left: -33px;
 }
 
 input[type="radio"]{
-    display: flex;
+    position: relative;
+    top: -40px;
     cursor: pointer;
-    position: relative;
-    bottom: -5px;
-    left: 10px;
 }
-
-.delete{
-    display: flex;
-    position: relative;
+.rainbow-text {
     float: right;
-    bottom: 20px;
-    left: 120px;
-    margin: 0 10px; 
+    position: relative;
+    font-size: clamp(1rem, 3vw, 3rem);
+    top: -40px;
+    white-space: nowrap;
+    font-weight: bold;
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+    -webkit-background-clip: text; /* This is super fishy, May not work in some browsers :( */
+    color: transparent;
+  }
+.heading{
+    position: relative;
+    text-align: center;
+    color: gainsboro;
+    font-family: 'Georgia', serif;
+    text-shadow: 0 0 10px #050505, 0 0 20px #0f0f0f;
+    margin-top: 5%;
 }
 
-.heading{
-    position: absolute;
-    top: 17.5%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-family: 'Georgia', serif;
-    text-shadow: 0 0 10px #050505, 0 0 20px #ffffff;
-    text-align: center;
-    width: 100%;
-    .largerHeading{
-        font-size: 7vw;
-        margin: 0;
-    }
-    .smallerHeading{
-        position: absolute;
-        font-size: 3vw;
-        margin: 0;
-        top: 85%; 
-        left: 50%;
-        transform: translateX(-50%);
-    }
+.largerHeading{
+    font-size: clamp(2rem, 7vw, 6rem);
+}
+
+.smallerHeading{
+    font-size: clamp(1rem, 3vw, 3rem);
 }
 
 .status{
     float: right;
-    position: relative;
-    bottom: 125px;
-    right: 15px;
+    top: 10px;
+    right: 20px;
+    position: absolute;
 }
 
-.booklist{
-    position: relative;
-    width: 100%;
-    width: 800px;
+.booklist {
+    width: 90%;
+    max-width: 800px;
+    margin: 30px auto;
     padding: 20px;
-    bottom: -100px;
-    box-sizing: content-box;
-    margin: 0 auto;
-    border: 25px double brown;
+    border: 15px solid sienna;
+    border-width: 20px 10px; 
+    background-color: burlywood;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.book{
-    color: black;
+.book {
     border: 2px solid goldenrod;
-    margin: 30px;
+    margin: 20px 0;
     padding: 10px;
     border-radius: 10px;
     background-color: white;
-    box-shadow: 0 4px 10px gray;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     transition: all 0.15s ease;
+    position: relative;
 }
-.book:hover{
-    border-color: gold;
+
+.book::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    bottom: -10px;
+    left: 0;
+    background: linear-gradient(to right, sienna, saddlebrown);
+    border-radius: 5px;
+    opacity: 0.7;
 }
 
 .ul{
     list-style-type: none;
+    padding: 0;
+    gap: 10px;
+}
+.filter{
+    display: inline-block;
+    margin: 3px;
 }
 
 .booktext{
     margin-left: 10px;
-    margin-block-start: 10px;
 }
 
 input[type="text"]{
-    box-sizing: border-box;
-    transition: 0.2s;
+    width: 100%;
     border: 2px solid black;
     outline: none;
     margin-bottom: 15px;
 }
 
-.input, .search, .missing{
-    max-width: fit-content;
-    margin: 0 auto;
+.search, .missing{
+    max-width: 40%;
+    margin: 10px auto;
+    text-align: center;
+    color: gainsboro;
+    font-family: 'Georgia', serif;
+}
+.search{
+    text-shadow: 0 0 10px #050505, 0 0 20px #0f0f0f;
 }
 
 .missing{
-    margin-top: 10px;
-    text-align: center;
-    word-spacing: 10px;
-    font-size: 15px;
+    font-size: 1rem;
     font-family: Arial, sans-serif;
     color: red;
+}
+
+.modal-body input{
+    width: 100%;
+}
+
+.deleteFilter{
+    position: relative;
+    top: 2px;
+}
+
+@media (max-width: 768px){
+    .rating, .delete{
+        float: none;
+        justify-content: flex-start;
+    }
+
+    .booklist{
+        width: 95%;
+        padding: 10px;
+    }
+
+    .book{
+        padding: 5px;
+    }
+
+    .status{
+        float: none;
+    }
+
+    .heading{
+        margin-top: 10%;
+    }
 }
